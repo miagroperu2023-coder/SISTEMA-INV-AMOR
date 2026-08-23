@@ -25,15 +25,15 @@ class Report extends Component
             ->whereHas('sale', function ($q) {
                 $q->whereBetween('fecha', [$this->fechaInicio, $this->fechaFin]);
             })
-            ->with('productVariant.product', 'productVariant.size')
+            ->with('variant.product', 'variant.size')
             ->get()
             ->groupBy('product_variant_id')
             ->map(function ($items) {
                 $primero = $items->first();
                 return [
-                    'nombre' => $primero->productVariant->product->nombre,
-                    'talla' => $primero->productVariant->size->valor,
-                    'color' => $primero->productVariant->color,
+                    'nombre' => $primero->variant->product->nombre,
+                    'talla' => $primero->variant->size->valor,
+                    'color' => $primero->variant->color,
                     'cantidad' => $items->sum('cantidad'),
                     'subtotal' => $items->sum('subtotal'),
                 ];
