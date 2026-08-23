@@ -11,9 +11,45 @@ class Register extends Component
 
     public $busqueda = '';
     public $resultados = [];
-
     // items apilados antes de guardar la venta
     public $items = []; // [ ['variant_id', 'nombre', 'talla', 'color', 'precio_compra', 'precio_venta', 'cantidad'] ]
+
+
+    public $pagos = []; // [ ['tipo_pago' => 'YAPE', 'monto' => 80] ]
+    public $nuevoTipoPago = 'EFECTIVO';
+    public $nuevoMontoPago = 0;
+
+
+    public function agregarPago()
+    {
+        if ($this->nuevoMontoPago <= 0) {
+            return;
+        }
+
+        $this->pagos[] = [
+            'tipo_pago' => $this->nuevoTipoPago,
+            'monto' => $this->nuevoMontoPago,
+        ];
+
+        $this->nuevoMontoPago = 0;
+    }
+
+    public function quitarPago($index)
+    {
+        unset($this->pagos[$index]);
+        $this->pagos = array_values($this->pagos);
+    }
+
+    public function getTotalPagadoProperty()
+    {
+        return collect($this->pagos)->sum('monto');
+    }
+
+    public function getVueltoProperty()
+    {
+        return max(0, $this->totalPagado - $this->total);
+    }
+
 
     public function updatedBusqueda()
     {
@@ -112,6 +148,11 @@ class Register extends Component
 
     public function guardarVenta()
     {
+        if ($this->totalPagado < $this->total) {
+            session()->flash('error', 'El monto pagado es menor al total de la venta.');
+            return;
+        }
+
         if (empty($this->items)) {
             session()->flash('error', 'Agrega al menos un producto antes de guardar.');
             return;
@@ -144,6 +185,11 @@ class Register extends Component
             ProductVariant::where('id', $item['variant_id'])
                 ->decrement('stock', $item['cantidad']);
         }
+
+        foreach ($this->pagos as $pago) {
+            $sale->payments()->create($pago);
+        }
+        $this->pagos = [];
 
         $this->items = [];
         session()->flash('ok', 'Venta registrada correctamente.');

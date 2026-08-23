@@ -19,4 +19,9 @@ class Sale extends Model
     {
         return $this->hasMany(SaleItem::class);
     }
+
+    public function payment()
+    {
+        return $this->hasOne(SalePayment::class);
+    }
 }
