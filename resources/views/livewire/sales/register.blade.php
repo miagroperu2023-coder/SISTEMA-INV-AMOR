@@ -9,41 +9,6 @@
 
     <h2 class="h4 fw-bold mb-4">Registrar venta</h2>
 
-    <div class="border rounded p-2 mb-2">
-        <div class="d-flex gap-2 align-items-end mb-2">
-            <div>
-                <label class="form-label small mb-1">Método</label>
-                <select wire:model="nuevoTipoPago" class="form-select form-select-sm">
-                    <option value="EFECTIVO">Efectivo</option>
-                    <option value="YAPE">Yape</option>
-                    <option value="PLIN">Plin</option>
-                    <option value="TARJETA">Tarjeta</option>
-                </select>
-            </div>
-            <div>
-                <label class="form-label small mb-1">Monto</label>
-                <input type="number" step="0.01" wire:model="nuevoMontoPago" class="form-control form-control-sm"
-                    style="width:100px">
-            </div>
-            <button wire:click="agregarPago" class="btn btn-sm btn-outline-primary">+ Agregar pago</button>
-        </div>
-
-        @foreach ($pagos as $index => $pago)
-            <div class="d-flex justify-content-between small border-top pt-1">
-                <span>{{ $pago['tipo_pago'] }}: S/ {{ number_format($pago['monto'], 2) }}</span>
-                <button wire:click="quitarPago({{ $index }})"
-                    class="btn btn-sm btn-link text-danger p-0">×</button>
-            </div>
-        @endforeach
-
-        <div class="d-flex justify-content-between mt-2 small">
-            <strong>Pagado: S/ {{ number_format($this->totalPagado, 2) }}</strong>
-            @if ($this->vuelto > 0)
-                <span class="text-muted">Vuelto: S/ {{ number_format($this->vuelto, 2) }}</span>
-            @endif
-        </div>
-    </div>
-
     {{-- BUSCADOR --}}
     <div class="position-relative mb-4">
         <input type="text" wire:model.live.debounce.300ms="busqueda" class="form-control"
@@ -65,6 +30,7 @@
             </div>
         @endif
     </div>
+    {{-- BUSCADOR --}}
 
     {{-- ITEMS APILADOS --}}
     @if (count($items) > 0)
@@ -114,5 +80,43 @@
     @else
         <p class="text-muted">Busca un producto arriba para empezar a registrar la venta.</p>
     @endif
+    {{-- ITEMS APILADOS --}}
+
+    {{-- METODO DE PAGO --}}
+    <div class="border rounded p-2 mb-2">
+        <div class="d-flex gap-2 align-items-end mb-2">
+            <div>
+                <label class="form-label small mb-1">Método</label>
+                <select wire:model="nuevoTipoPago" class="form-select form-select-sm">
+                    <option value="EFECTIVO">Efectivo</option>
+                    <option value="YAPE">Yape</option>
+                    <option value="PLIN">Plin</option>
+                    <option value="TARJETA">Tarjeta</option>
+                </select>
+            </div>
+            <div>
+                <label class="form-label small mb-1">Monto</label>
+                <input type="number" step="0.01" wire:model="nuevoMontoPago" class="form-control form-control-sm"
+                    style="width:100px">
+            </div>
+            <button wire:click="agregarPago" class="btn btn-sm btn-outline-primary">+ Agregar pago</button>
+        </div>
+
+        @foreach ($pagos as $index => $pago)
+            <div class="d-flex justify-content-between small border-top pt-1">
+                <span>{{ $pago['tipo_pago'] }}: S/ {{ number_format($pago['monto'], 2) }}</span>
+                <button wire:click="quitarPago({{ $index }})"
+                    class="btn btn-sm btn-link text-danger p-0">×</button>
+            </div>
+        @endforeach
+
+        <div class="d-flex justify-content-between mt-2 small">
+            <strong>Pagado: S/ {{ number_format($this->totalPagado, 2) }}</strong>
+            @if ($this->vuelto > 0)
+                <span class="text-muted">Vuelto: S/ {{ number_format($this->vuelto, 2) }}</span>
+            @endif
+        </div>
+    </div>
+    {{-- METODO DE PAGO --}}
 
 </div>
