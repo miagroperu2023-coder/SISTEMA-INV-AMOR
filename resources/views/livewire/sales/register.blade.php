@@ -72,11 +72,6 @@
                 @endforeach
             </tbody>
         </table>
-
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <h5 class="mb-0">Total: S/ {{ number_format($this->total, 2) }}</h5>
-            <button wire:click="guardarVenta" class="btn btn-primary">Guardar venta</button>
-        </div>
     @else
         <p class="text-muted">Busca un producto arriba para empezar a registrar la venta.</p>
     @endif
@@ -118,5 +113,12 @@
         </div>
     </div>
     {{-- METODO DE PAGO --}}
+
+    {{-- GUARDAR VENTA --}}
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <h5 class="mb-0">Total: S/ {{ number_format($this->total, 2) }}</h5>
+        <button wire:click="guardarVenta" class="btn btn-primary">Guardar venta</button>
+    </div>
+    {{-- GUARDAR VENTA --}}
 
 </div>

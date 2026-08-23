@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\product\ProductController;
+use App\Http\Controllers\report\ReportController;
 use App\Http\Controllers\sale\SaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,4 @@ Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
 Route::get('/productos', [ProductController::class, 'index'])->name('product.index');
 Route::get('/sales', [SaleController::class , 'index'])->name('sales.index');
+Route::get('/sales/report', [ReportController::class, 'index'])->name('sales.report.index');

@@ -11,8 +11,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ route('product.index') }}">Productos</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ route('sales.index') }}">Ventas</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('sales.report.index') }}">Ventas</a>
                 </li>
             </ul>
         </div>
