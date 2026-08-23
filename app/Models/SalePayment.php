@@ -14,4 +14,9 @@ class SalePayment extends Model
         'tipo_pago',
         'monto',
     ];
+
+    public function sale() // esta es la que faltaba
+    {
+        return $this->belongsTo(Sale::class);
+    }
 }
