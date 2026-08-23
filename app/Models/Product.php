@@ -14,6 +14,7 @@ class Product extends Model
         'descripcion',
         'categoria_id',
         'imagen',
+        'user_id'
     ];
 
     public function category()
@@ -29,5 +30,10 @@ class Product extends Model
     public function stockTotal()
     {
         return $this->variants()->sum('stock');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

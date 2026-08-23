@@ -5,6 +5,6 @@
     <div class="container-fluid">
         @include('template.nav')
 
-        @livewire('products.create')
+        @livewire('sales.register')
     </div>
 @endsection

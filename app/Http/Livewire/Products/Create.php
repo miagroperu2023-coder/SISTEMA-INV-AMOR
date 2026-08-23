@@ -45,6 +45,7 @@ class Create extends Component
             'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
             'categoria_id' => $this->categoria_id,
+            'user_id' => auth()->user()->id
         ]);
 
         foreach ($this->variantes as $sizeId => $data) {

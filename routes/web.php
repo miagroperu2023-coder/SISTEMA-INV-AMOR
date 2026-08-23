@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\product\ProductController;
+use App\Http\Controllers\sale\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +20,10 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', [ProductController::class, 'index'])->name('product.index');
+Route::get('/', [AuthController::class, 'index'])->name('login');
+Route::post('/login', [AuthController::class, 'store'])->name('login.attempt');
+Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+
+
+Route::get('/productos', [ProductController::class, 'index'])->name('product.index');
+Route::get('/sales', [SaleController::class , 'index'])->name('sales.index');
