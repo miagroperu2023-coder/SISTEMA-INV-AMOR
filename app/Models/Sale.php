@@ -20,8 +20,8 @@ class Sale extends Model
         return $this->hasMany(SaleItem::class);
     }
 
-    public function payment()
+    public function payments()
     {
-        return $this->hasOne(SalePayment::class);
+        return $this->hasMany(SalePayment::class);
     }
 }
